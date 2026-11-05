@@ -4,7 +4,7 @@
 % from MAT files that hold a dlnetwork named 'net' with an ImageNet backbone
 % (for example created with visionTransformer or importNetworkFromPyTorch);
 % their last fully connected layer is replaced by a 2-class layer here.
-% Hyperparameters are cfg.base.* (set them to the values used in the paper).
+% Hyperparameters are cfg.base.* (per-model solver and learning rate, as in the paper).
 clear; clc;
 cfg = config_itn();
 T = readtable(cfg.ooManifest, 'TextType', 'string');
@@ -20,8 +20,8 @@ for m = 1:numel(cfg.base.models)
         net = get_baseline(name, cfg);
         inSz = net.Layers(1).InputSize(1:2);
         aug = @(files, labels) augmentedImageDatastore([inSz 3], imageDatastore(files, 'Labels', labels), 'ColorPreprocessing', 'gray2rgb');
-        opts = trainingOptions(cfg.base.solver, 'MiniBatchSize', cfg.base.miniBatch, ...
-            'MaxEpochs', cfg.base.maxEpochs, 'InitialLearnRate', cfg.base.learnRate, ...
+        opts = trainingOptions(cfg.base.solver{m}, 'MiniBatchSize', cfg.base.miniBatch, ...
+            'MaxEpochs', cfg.base.maxEpochs, 'InitialLearnRate', cfg.base.learnRate(m), ...
             'Shuffle', 'every-epoch', 'Verbose', false, 'Plots', 'none');
         net = trainnet(aug(T.path(tr), y(tr)), net, 'crossentropy', opts);
         s = minibatchpredict(net, aug(T.path(te), y(te)));

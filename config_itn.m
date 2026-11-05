@@ -48,14 +48,22 @@ cfg.holdoutFrac  = 0.20;           % Protocol C: fraction of patients held out
 cfg.seed         = 1;              % [default]
 
 % ---- uncertainty
-cfg.bootstrapB   = 2000;           % [default] patient-cluster bootstrap resamples
+cfg.bootstrapB   = 2000;           % [paper] patient-cluster bootstrap resamples (percentile 2.5-97.5)
+cfg.bootstrapSeed = 42;            % [paper] random seed of the bootstrap
 cfg.alpha        = 0.05;
 
-% ---- baselines on the Protocol B partitions [default settings]
+% ---- baselines on the Protocol B partitions [paper, Section 2.4]
+% one entry per model in cfg.base.models; no data augmentation
 cfg.base.models     = {'resnet50', 'efficientnetb0', 'convnext_tiny', 'vit_b16'};
-cfg.base.miniBatch  = 32;
-cfg.base.maxEpochs  = 10;
-cfg.base.learnRate  = 1e-4;
-cfg.base.solver     = 'adam';
+cfg.base.solver     = {'sgdm', 'sgdm', 'adam', 'adam'};
+cfg.base.learnRate  = [1e-4, 1e-4, 5e-5, 1e-5];
+cfg.base.maxEpochs  = 20;
+cfg.base.miniBatch  = 16;
+
+% ---- end-to-end fine-tuning of InceptionTurkerNeXt without DFE [paper, Section 2.4]
+cfg.itnft.solver    = 'sgdm';
+cfg.itnft.learnRate = 1e-4;
+cfg.itnft.maxEpochs = 20;
+cfg.itnft.miniBatch = 16;
 cfg.base.convnextFile = fullfile('weights', 'convnext_tiny_imagenet.mat');  % imported network (see README)
 end

@@ -44,7 +44,7 @@ for i = 1:numel(protocols)
         [yP, pP, sP] = patient_majority_vote(y, R.pred, R.score, pid, pos);
         MP = compute_metrics(yP, pP, sP, pos);
         rows(end+1, :) = metric_row('B', 'patient', MP); %#ok<SAGROW>
-        CI = cluster_bootstrap_ci(y, R.pred, R.score, pid, pos, cfg.bootstrapB, cfg.alpha, cfg.seed);
+        CI = cluster_bootstrap_ci(y, R.pred, R.score, pid, pos, cfg.bootstrapB, cfg.alpha, cfg.bootstrapSeed);
         save(fullfile(cfg.resultsDir, 'protocolB_bootstrap_ci.mat'), 'CI');
         fprintf('Protocol B accuracy %.2f%% (95%% CI %.2f-%.2f, patient-cluster bootstrap, B = %d)\n', ...
             M.accuracy, CI.accuracy(1), CI.accuracy(2), CI.B);
