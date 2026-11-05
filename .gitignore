@@ -1,0 +1,7 @@
+data/
+features/
+results/
+*.asv
+*.mat
+!weights/*.mat
+slprj/

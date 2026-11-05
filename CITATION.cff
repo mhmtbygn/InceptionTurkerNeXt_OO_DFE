@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this code or the pretrained weights, please cite the article."
+title: "InceptionTurkerNeXt: A Compact CNN and Deep Feature Engineering Framework for Image-Level Osteoid Osteoma Classification on Computed Tomography"
+type: software
+version: 1.0.0
+date-released: 2026-11-05
+license: MIT
+authors:
+  - family-names: Key
+    given-names: Sefa
+  - family-names: Agar
+    given-names: Anil
+  - family-names: Goktas
+    given-names: Omer Faruk
+  - family-names: Baygin
+    given-names: Mehmet
+  - family-names: Dogan
+    given-names: Sengul
+  - family-names: Tuncer
+    given-names: Turker
