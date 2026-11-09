@@ -17,7 +17,7 @@ cfg.train.miniBatch      = 128;
 cfg.train.solver         = 'sgdm';
 cfg.train.initLearnRate  = 0.01;
 cfg.train.dropFactor     = 0.1;
-cfg.train.dropPeriod     = 10;     % [default] not reported
+cfg.train.dropPeriod     = 10;     % [paper] learning rate reduced once, after epoch 10
 cfg.train.l2             = 1e-4;
 cfg.train.maxEpochs      = 20;
 cfg.train.momentum       = 0.9;
@@ -45,7 +45,7 @@ cfg.tknn.innerFolds = 10;
 % ---- validation protocols [paper, Section 2.4]
 cfg.outerFolds   = 10;
 cfg.holdoutFrac  = 0.20;           % Protocol C: fraction of patients held out
-cfg.seed         = 1;              % [default]
+cfg.seed         = 42;             % [paper] seed of the patient-grouped fold assignment
 
 % ---- uncertainty
 cfg.bootstrapB   = 2000;           % [paper] patient-cluster bootstrap resamples (percentile 2.5-97.5)
